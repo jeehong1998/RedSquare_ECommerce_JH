@@ -178,3 +178,28 @@ button
 .dropdown-content button {
   display: block;
 }
+
+.product-detail-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-detail-row {
+  order: 1;
+}
+
+.product-details {
+  order: 2;
+}
+
+.field-row
+{
+  text-align: left;
+}
+
+.product-detail-image
+{
+  width: 100%;
+  height: 200px; 
+  object-fit: cover;
+}  

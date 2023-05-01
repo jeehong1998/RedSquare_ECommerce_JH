@@ -46,7 +46,15 @@ export const ProductListing = (props) =>
         const products = sortedProducts.slice(0, 10).map((element, index) => (
             <div className="product" key={index}>
                 <img src={element.images[0]} alt={element.title} />
-                <h2>{element.title}</h2>
+                <a href="#" onClick = {() => handleHyperlink({
+                    "title" : element.title,
+                    "price" : element.price,
+                    "category" : element.category,
+                    "image" : element.images[0],
+                    "description" : element.description
+                })}>
+                    <h2>{element.title}</h2>
+                </a>
                 <p className="category">{element.category}</p>
                 <p className="price">RM {element.price}</p>
             </div>
@@ -72,6 +80,11 @@ export const ProductListing = (props) =>
     {
         generate_products(keyword, sort_by);
     };
+
+    const handleHyperlink = (product_detail) => {
+        props.switchComponent('ProductDetail');
+        props.product_detail(product_detail);
+    }
 
     return (
         <div className="product-list">

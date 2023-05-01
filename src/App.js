@@ -3,10 +3,13 @@ import './App.css';
 import { Login } from "./Login"
 import { Register } from "./Register"
 import { ProductListing } from "./ProductListing"
+import { ProductDetail } from "./ProductDetail"
+
 import Axios from 'axios';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('');
+  const [product_detail, setProductDetail] = useState('');
 
   useEffect(() => 
   {
@@ -36,7 +39,7 @@ function App() {
 
   return (
     <div className = "App">
-      {currentForm === 'Login' ? (<Login switchComponent={setCurrentForm} />) : currentForm === 'Register' ? (<Register switchComponent={setCurrentForm}/>) : currentForm === 'ProductListing' ? (<ProductListing />) : null}
+      {currentForm === 'Login' ? (<Login switchComponent = {setCurrentForm} />) : currentForm === 'Register' ? (<Register switchComponent = {setCurrentForm}/>) : currentForm === 'ProductListing' ? (<ProductListing switchComponent ={ setCurrentForm} product_detail = {setProductDetail} />) : currentForm === 'ProductDetail' ? (<ProductDetail switchComponent = {setCurrentForm} product_detail = {product_detail}/>) : null }
     </div>
   );
 }
