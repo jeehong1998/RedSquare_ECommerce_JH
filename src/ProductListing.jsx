@@ -1,16 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export const ProductListing = (props) => 
 {
     const [product, setProduct] = useState('');
 
-    const generate_products = async () => 
+    const generate_products = async (keyword, sort_by) => 
     {
         const response = await fetch('https://dummyjson.com/products');
         const res = await response.json();
 
-        const products = res.products.slice(0, 10).map((element, index) => (
-            <div className="product" key = {index}>
+        const filteredProducts = res.products.filter((element) => 
+            element.title.toLowerCase().includes(keyword.toLowerCase()) || element.category.toLowerCase().includes(keyword.toLowerCase())
+        );
+
+        let sortedProducts;
+
+        if(sort_by == 'highest_price')
+        {
+            sortedProducts = filteredProducts.sort((a, b) => b.price - a.price);
+        }
+        else if(sort_by == 'lowest_price')
+        {
+            sortedProducts = filteredProducts.sort((a, b) => a.price - b.price);
+        }
+        else if(sort_by == 'ascending_product')
+        {
+            sortedProducts = filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
+        }
+        else if(sort_by == 'descending_product')
+        {
+            sortedProducts = filteredProducts.sort((a, b) =>{
+                if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+                if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+                return 0;
+            });
+
+            sortedProducts = sortedProducts.reverse();
+        }
+        else
+        {
+            sortedProducts = filteredProducts;
+        }
+
+
+        const products = sortedProducts.slice(0, 10).map((element, index) => (
+            <div className="product" key={index}>
                 <img src={element.images[0]} alt={element.title} />
                 <h2>{element.title}</h2>
                 <p className="category">{element.category}</p>
@@ -21,14 +55,38 @@ export const ProductListing = (props) =>
         setProduct(products);
     };
 
-    generate_products();
+    useEffect(() => 
+    {
+        generate_products('');
+    }, []);
+
+    const handleKeyDown = (event) => 
+    {
+        if (event.key === 'Enter') 
+        {
+            generate_products(event.target.value, '');
+        }
+    }
+
+    const handleSortBy = (keyword, sort_by) => 
+    {
+        generate_products(keyword, sort_by);
+    };
 
     return (
         <div className="product-list">
             <div className="header">
                 <h1>Product List</h1>
                 <button className="logout-button">Logout</button>
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" />
+                <input type="text" id="myInput" onKeyDown={handleKeyDown} placeholder="Search for names.." title="Type in a name" />
+                <div className="sort-by">
+                    <div className="dropdown">
+                        <button onClick={() => handleSortBy(document.getElementById('myInput').value, 'highest_price')}>Sort by Highest Price</button>
+                        <button onClick={() => handleSortBy(document.getElementById('myInput').value, 'lowest_price')}>Sort by Lowest Price</button>
+                        <button onClick={() => handleSortBy(document.getElementById('myInput').value, 'ascending_product')}>Sort by Product Title in ascending order</button>
+                        <button onClick={() => handleSortBy(document.getElementById('myInput').value, 'descending_product')}>Sort by Product Title in descending order</button>
+                    </div>
+                </div>
             </div>
             <div className="products">
                 {product}
