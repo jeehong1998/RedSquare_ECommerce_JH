@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
   display: flex;
   min-height: 100vh;
   align-items: center;
@@ -112,6 +112,19 @@ button
   grid-row: 2 / 3; /* starts at the second row and ends at the third row */
 }
 
+.cart-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+  width: 100px;
+  grid-column: 2;
+  grid-row: 1 / 2;
+}
+
 .logout-button {
   background-color: #4CAF50;
   color: white;
@@ -159,6 +172,7 @@ button
   font-size: 16px;
   border: none;
   cursor: pointer;
+  text-align: left;
 }
 
 .dropdown button:hover {
@@ -203,3 +217,49 @@ button
   height: 200px; 
   object-fit: cover;
 }  
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead {
+  background-color: #eee;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+td img {
+  max-width: 100px;
+}
+
+.quantity-btn {
+  background-color: #eee;
+  border: none;
+  color: #333;
+  font-size: 1.2em;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.plus-btn {
+  border-left: 1px solid #ccc;
+}
+
+.quantity {
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+
+.remove-btn {
+  background-color: #ff6347;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  padding: 5px;
+  cursor: pointer;
+}

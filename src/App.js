@@ -4,6 +4,7 @@ import { Login } from "./Login"
 import { Register } from "./Register"
 import { ProductListing } from "./ProductListing"
 import { ProductDetail } from "./ProductDetail"
+import { ShoppingCart } from "./ShoppingCart"
 
 import Axios from 'axios';
 
@@ -39,7 +40,7 @@ function App() {
 
   return (
     <div className = "App">
-      {currentForm === 'Login' ? (<Login switchComponent = {setCurrentForm} />) : currentForm === 'Register' ? (<Register switchComponent = {setCurrentForm}/>) : currentForm === 'ProductListing' ? (<ProductListing switchComponent ={ setCurrentForm} product_detail = {setProductDetail} />) : currentForm === 'ProductDetail' ? (<ProductDetail switchComponent = {setCurrentForm} product_detail = {product_detail}/>) : null }
+      {currentForm === 'Login' ? (<Login switchComponent = {setCurrentForm} />) : currentForm === 'Register' ? (<Register switchComponent = {setCurrentForm}/>) : currentForm === 'ProductListing' ? (<ProductListing switchComponent ={ setCurrentForm} product_detail = {setProductDetail} />) : currentForm === 'ProductDetail' ? (<ProductDetail switchComponent = {setCurrentForm} product_detail = {product_detail}/>) : currentForm === 'ShoppingCart' ? (<ShoppingCart switchComponent = {setCurrentForm}/>) : null }
     </div>
   );
 }

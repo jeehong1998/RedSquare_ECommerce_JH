@@ -149,3 +149,59 @@ function checkTokenCallback(res, valid_token)
 app.get('/isUserAuth', verifyJWT, (req, res) => {
     res.send("You are authenticated");
 })
+
+
+// Add to Cart
+app.post('/addToCart', (req, res) => 
+{
+    // Decrypt the token
+    const token = req.body.token;
+    const decodedToken = jwt.decode(token, "jwtSecret");
+    const product_title = req.body.product_title;
+    const product_price = req.body.product_price;
+    const product_image = req.body.product_image;
+
+
+    db.query("SELECT * FROM cart WHERE product_title = ? AND updated_by = ?", [product_title, decodedToken.id], (err, result) =>{
+        if(err !== null)
+        {
+            res.json({message: err.message});
+        } 
+        else
+        {
+            if (result.length !== 0)
+            {
+                let current_quantity = parseInt(result[0].quantity) + 1;
+
+                // Update existing record
+                db.query("UPDATE cart SET quantity = ? WHERE product_title = ? AND updated_by = ?", [current_quantity, product_title,  decodedToken.id]);
+            }
+            else
+            {   
+                // Insert new record
+                db.query("INSERT INTO cart (product_title, quantity, price, image, updated_by) VALUES (?, ?, ?, ?, ?)", [product_title, 1, product_price, product_image, decodedToken.id]);
+            }
+            res.json({message: "Product added to cart successfully"});
+        }
+    })
+})
+
+
+// Get Cart info
+app.post('/getCartDetails', (req, res) => 
+{
+    // Decrypt the token
+    const token = req.body.token;
+    const decodedToken = jwt.decode(token, "jwtSecret");
+
+    db.query("SELECT * FROM cart WHERE updated_by = ?", [decodedToken.id], (err, result) =>{
+        if(err !== null)
+        {
+            res.json({message: err.message});
+        } 
+        else
+        {
+            res.json({result: result});
+        }
+    })
+})
