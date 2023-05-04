@@ -18,20 +18,18 @@ export const ShoppingCart = (props) => {
               <td>RM {element.price}</td>
               <td>RM {element.price * element.quantity}</td>
               <td>
-                <button className="quantity-btn minus-btn" disabled={element.quantity === 1 ? true : false} onClick = {() => handleModifyCart({
-                    "title" : element.product_title,
-                    "type": "decrease"
-                })}>-</button>
-                <span className="quantity">{element.quantity}</span>
-                <button className="quantity-btn plus-btn" onClick = {() => handleModifyCart({
-                    "title" : element.product_title,
-                    "type": "increase"
-                })}>+</button>
+                <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                  <div className="d-flex flex-row justify-content-between mb-2 mb-md-0">
+                    <button className="quantity-btn minus-btn me-2" disabled={element.quantity === 1 ? true : false} onClick={() => handleModifyCart({ "title": element.product_title, "type": "decrease" })}>-</button>
+                    <span className="quantity">{element.quantity}</span>
+                    <button className="quantity-btn plus-btn ms-2" onClick={() => handleModifyCart({ "title": element.product_title, "type": "increase" })}>+</button>
+                  </div>
+                  
+                </div>
               </td>
-              <td><button className="remove-btn" onClick = {() => handleModifyCart({
-                    "title" : element.product_title,
-                    "type": "remove"
-                })}>Remove</button></td>
+              <td>
+                <button className="remove-btn" onClick={() => handleModifyCart({ "title": element.product_title, "type": "remove" })}>Remove</button>
+              </td>
             </tr>
           );
         });
@@ -66,7 +64,7 @@ export const ShoppingCart = (props) => {
         </div>
       </header>
       <main>
-        <table>
+        <table className="table table-striped table-bordered dt-responsive nowrap" style={{width:'100%'}}>
           <thead>
             <tr>
               <th>Product Image</th>
