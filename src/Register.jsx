@@ -63,7 +63,7 @@ export const Register = (props) => {
                 <label htmlFor = "password">Password</label>
                 <input value = {password} onChange = {(e) => setPassword(e.target.value)} placeholder = "Your password" type = "password" id = "password" name = "password"/>
 
-                <button onClick={handleSubmit}>Register</button>
+                <button onClick={handleSubmit}  style={{marginTop: '10px'}} >Register</button>
             </form>
 
             <button className = "link-btn"  onClick = {() => props.switchComponent('Login')}> Already have an account ? Login here.</button>

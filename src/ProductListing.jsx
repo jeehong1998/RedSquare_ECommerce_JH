@@ -100,21 +100,38 @@ export const ProductListing = (props) =>
 
     return (
         <div className="product-list">
-            <div className="header">
-                <h1>Product List</h1>
-                <button className = "cart-button" onClick = {handleNavigateShoppingCart}>Cart</button>
-                <button className = "logout-button" onClick = {logout} >Logout</button>
+            <nav className = "navbar navbar-expand bg-dark">
+                <div className="container text-white">
+                    <h1>Product List</h1>
+                    <ul className="navbar-nav ">
+                        <li className="nav-item">
+                            <a className="nav-link" href="#" onClick = {handleNavigateShoppingCart}>Cart</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#" onClick = {logout}>Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
-                <input type="text" id="myInput" onKeyDown={handleKeyDown} placeholder="Search for names.." title="Type in a name" />
-                <div className="sort-by">
-                    <div className="dropdown">
-                        <button onClick={() => handleSortBy(document.getElementById('myInput').value, 'highest_price')}>Sort by Highest Price</button>
-                        <button onClick={() => handleSortBy(document.getElementById('myInput').value, 'lowest_price')}>Sort by Lowest Price</button>
-                        <button onClick={() => handleSortBy(document.getElementById('myInput').value, 'ascending_product')}>Sort by Product Title in ascending order</button>
-                        <button onClick={() => handleSortBy(document.getElementById('myInput').value, 'descending_product')}>Sort by Product Title in descending order</button>
+            <div className="container">
+                <div className="row" style={{marginTop: '10px'}}>
+                    <div className="col">
+                        <input type="text" id="myInput" onKeyDown={handleKeyDown} placeholder="Search for names.." title="Type in a name" />
+                    </div>
+                    <div className="col">
+                        <div className="dropdown">
+                            <select className="form-select" onChange={(event) => handleSortBy(document.getElementById('myInput').value, event.target.value)}>
+                                <option value="highest_price">High Price</option>
+                                <option value="lowest_price">Low Price</option>
+                                <option value="ascending_product">Asc Product</option>
+                                <option value="descending_product">Desc Product</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div className="products">
                 {product}
             </div>

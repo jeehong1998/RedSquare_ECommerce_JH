@@ -6,6 +6,12 @@ import { ProductListing } from "./ProductListing"
 import { ProductDetail } from "./ProductDetail"
 import { ShoppingCart } from "./ShoppingCart"
 
+// Importing the Bootstrap 5 CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Import Bootstrap JavaScript
+import 'bootstrap/dist/js/bootstrap.min.js';
+
 import Axios from 'axios';
 
 function App() {

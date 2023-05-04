@@ -1,11 +1,11 @@
 .App {
-  text-align: left;
   display: flex;
   min-height: 100vh;
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(79deg, #fcfced, #fcedfc, 48%, #ebf6eb);
 }
+
 
 .auth-form-container, .login-form, .register-form
 {
@@ -17,6 +17,17 @@ label
 {
   text-align: left;
   padding: 0.25rem 0;  
+}
+
+a.nav-link {
+  color: #ffffff !important;
+  text-decoration: none; /* Removes underlines from links */
+}
+
+.product a
+{
+  color: #000000 !important;
+  text-decoration: none; /* Removes underlines from links */
 }
 
 input 
@@ -65,6 +76,7 @@ button
 .product h2 {
   margin-top: 10px;
   margin-bottom: 5px;
+  font-size: 15px;
 }
 
 .product .category {
@@ -92,25 +104,7 @@ button
   background-color: #ddd;
 }
 
-.header {
-  display: grid;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: #f2f2f2;
-  grid-template-rows: auto 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
-}
 
-.header h1 {
-  grid-column: 1 / span 2; /* spans two columns starting from the first column */
-  grid-row: 1 / 2; /* starts at the first row and ends at the second row */
-}
-
-#myInput {
-  grid-column: 1 / span 3; /* spans three columns starting from the first column */
-  grid-row: 2 / 3; /* starts at the second row and ends at the third row */
-}
 
 .cart-button {
   background-color: #4CAF50;
