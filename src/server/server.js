@@ -205,3 +205,32 @@ app.post('/getCartDetails', (req, res) =>
         }
     })
 })
+
+
+// Add to Cart
+app.post('/modifyCart', (req, res) => 
+{
+    // Decrypt the token
+    const token = req.body.token;
+    const decodedToken = jwt.decode(token, "jwtSecret");
+    const product_title = req.body.product_title;
+    const type = req.body.type;
+
+    if(type == 'increase')
+    {
+        // Update existing record
+        db.query("UPDATE cart SET quantity = (SELECT quantity + 1 FROM (SELECT * FROM cart) AS temp WHERE product_title = ? AND updated_by = ? ) WHERE product_title = ? AND updated_by = ?", [product_title,  decodedToken.id, product_title,  decodedToken.id]);
+    }
+    else if(type == "decrease")
+    {
+        // Update existing record
+        db.query("UPDATE cart SET quantity = (SELECT quantity - 1 FROM (SELECT * FROM cart) AS temp WHERE product_title = ? AND updated_by = ? ) WHERE product_title = ? AND updated_by = ?", [product_title,  decodedToken.id, product_title,  decodedToken.id]);
+    }
+    else if(type == "remove")
+    {
+        // Remove existing record
+        db.query("DELETE FROM cart WHERE product_title = ? AND updated_by = ?", [product_title,  decodedToken.id]);
+    }
+
+    res.json({message: "Successfully updated"});
+})

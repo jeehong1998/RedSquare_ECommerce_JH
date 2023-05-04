@@ -18,11 +18,20 @@ export const ShoppingCart = (props) => {
               <td>RM {element.price}</td>
               <td>RM {element.price * element.quantity}</td>
               <td>
-                <button className="quantity-btn minus-btn">-</button>
+                <button className="quantity-btn minus-btn" disabled={element.quantity === 1 ? true : false} onClick = {() => handleModifyCart({
+                    "title" : element.product_title,
+                    "type": "decrease"
+                })}>-</button>
                 <span className="quantity">{element.quantity}</span>
-                <button className="quantity-btn plus-btn">+</button>
+                <button className="quantity-btn plus-btn" onClick = {() => handleModifyCart({
+                    "title" : element.product_title,
+                    "type": "increase"
+                })}>+</button>
               </td>
-              <td><button className="remove-btn">Remove</button></td>
+              <td><button className="remove-btn" onClick = {() => handleModifyCart({
+                    "title" : element.product_title,
+                    "type": "remove"
+                })}>Remove</button></td>
             </tr>
           );
         });
@@ -32,10 +41,20 @@ export const ShoppingCart = (props) => {
 
   const handleNavigatePreviousPage = () => {
     props.switchComponent('ProductListing');
-}
+  }
+
+  const handleModifyCart = (product_details) => 
+  {
+      const token = localStorage.getItem("token");
+
+      Axios.post('http://localhost:3001/modifyCart', {product_title: product_details.title, type: product_details.type , token: token})
+      .then(response => {
+          getCurrentCartInfo();
+      });
+  }
 
   useEffect(() => {
-    getCurrentCartInfo('');
+    getCurrentCartInfo();
   }, []);
 
   return (

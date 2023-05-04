@@ -90,12 +90,20 @@ export const ProductListing = (props) =>
         props.switchComponent('ShoppingCart');
     }
 
+    const logout = () => {
+        props.switchComponent('Login');
+
+        // Remove token
+        localStorage.removeItem("token");
+    }
+
+
     return (
         <div className="product-list">
             <div className="header">
                 <h1>Product List</h1>
                 <button className = "cart-button" onClick = {handleNavigateShoppingCart}>Cart</button>
-                <button className = "logout-button">Logout</button>
+                <button className = "logout-button" onClick = {logout} >Logout</button>
 
                 <input type="text" id="myInput" onKeyDown={handleKeyDown} placeholder="Search for names.." title="Type in a name" />
                 <div className="sort-by">
