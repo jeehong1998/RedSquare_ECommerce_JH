@@ -1,3 +1,6 @@
+
+Welcome to my E-commerce project! This project is built with React JS and utilizes MySQL as its database. I have also used the Express library to establish API calls for the back-end. The project allows users to register an account, log in to their account, view a product list, and add products to their cart.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
